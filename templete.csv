@@ -1,1 +1,1 @@
-ts_code,last_MA5,today_MA5,tomory_MA5,low_price,close,target_price,diff_value,get
+ts_code,trade_date,two_day_MA10,one_day_MA10,today_close,today_open,today_low,today_high,target_price,diff_value,get_close,get_high,get_open
