@@ -1,0 +1,2 @@
+,ts_code,trade_date,two_day_MA10,one_day_MA10,today_close,tomorrow_open,tomorrow_high,tomorrow_low,target_price,diff_value,get_close,get_high,get_open
+0,600377.XSHG,2022-02-15,9.08,9.12,,9.07,9.28,9.02,9.16,1.75%,0.98%,1.31%,-0.98%

@@ -1,0 +1,4 @@
+,ts_code,trade_date,two_day_MA10,one_day_MA10,today_close,tomorrow_open,tomorrow_high,tomorrow_low,target_price,diff_value,get_close,get_high,get_open
+0,605500.XSHG,2021-04-02,19.09,19.15,,19.28,19.98,19.18,19.21,1.77%,2.92%,4.01%,0.36%
+1,605500.XSHG,2021-04-01,18.96,19.09,,19.14,19.91,18.87,19.22,2.81%,0.73%,3.59%,-0.42%
+2,605500.XSHG,2021-03-31,18.8,18.96,,19.22,19.41,18.68,19.12,-0.16%,0,3.59%,-0.42%

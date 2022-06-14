@@ -1,0 +1,2 @@
+,ts_code,trade_date,two_day_MA10,one_day_MA10,today_close,tomorrow_open,tomorrow_high,tomorrow_low,target_price,diff_value,get_close,get_high,get_open
+0,605566.XSHG,2021-12-28,31.0,31.15,,31.22,32.0,30.68,31.3,1.85%,-0.16%,2.24%,-0.26%

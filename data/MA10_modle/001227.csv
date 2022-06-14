@@ -1,0 +1,4 @@
+,ts_code,trade_date,two_day_MA10,one_day_MA10,today_close,tomorrow_open,tomorrow_high,tomorrow_low,target_price,diff_value,get_close,get_high,get_open
+0,001227.XSHE,2022-03-25,5.77,5.79,,5.65,5.87,5.46,5.81,2.75%,-1.38%,1.03%,-2.75%
+1,001227.XSHE,2022-03-24,5.77,5.77,,5.68,5.88,5.65,5.77,0.35%,-0.69%,1.91%,-1.56%
+2,001227.XSHE,2022-03-23,5.69,5.77,,5.94,6.0,5.75,5.85,-0.17%,0,1.91%,-1.56%

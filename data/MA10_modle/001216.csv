@@ -1,0 +1,4 @@
+,ts_code,trade_date,two_day_MA10,one_day_MA10,today_close,tomorrow_open,tomorrow_high,tomorrow_low,target_price,diff_value,get_close,get_high,get_open
+0,001216.XSHE,2021-12-06,17.47,17.59,,17.81,17.85,16.64,17.71,5.70%,-5.08%,0.79%,0.56%
+1,001216.XSHE,2021-12-03,17.33,17.47,,17.62,18.19,16.7,17.61,0.85%,2.50%,3.29%,0.06%
+2,001216.XSHE,2021-12-02,17.16,17.33,,17.67,17.97,17.46,17.5,-1.77%,0,3.29%,0.06%

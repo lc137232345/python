@@ -1,5 +1,6 @@
 from operator import imod
 from statistics import mode
+from xml.dom.expatbuilder import parseString
 import jqdatasdk as jq
 import pandas as pd
 import numpy as np
@@ -115,7 +116,6 @@ def camulate_stock_data_at_MA10(stock_code_list):
             else:
                 if(one_day_MA5 > one_day_MA10*1.02 and one_day_MA10 > one_day_MA20*1.02):  # 满足均线主升要求
 
-                    today_close = df.loc[i, 'close']
                     trade_date = df.loc[i, 'trade_date']
                     ts_code = df.loc[i, 'ts_code']
                     today_low = df.loc[i, 'low']
@@ -147,20 +147,23 @@ def camulate_stock_data_at_MA10(stock_code_list):
 
                     result.loc[len(result)] = {'trade_date': trade_date, 'ts_code': ts_code,
                                                'two_day_MA10': two_day_MA10, 'one_day_MA10': one_day_MA10,
-                                               'tomorrow_low': tomorrow_low, 'today_close': today_close,
+                                               'tomorrow_low': tomorrow_low,
                                                'tomorrow_open': tomorrow_open, 'tomorrow_high': tomorrow_high,
                                                'target_price': target_price, "diff_value": diff_value,
                                                'get_close': get_close, "get_high": get_high, "get_open": get_open}
 
             # 写入文件
-            result.to_csv('./data/MA10_modle/'+"test"+'.csv')
+        result.to_csv('./data/MA10_modle/'+stock_code+'.csv')
+        result.drop(result.index, inplace=True)
 
 
 stock_code = pd.read_csv('./data/主板名称.csv')
-stock_code_list = stock_code['ts_code'].to_list()
+stock_code_list = stock_code['ts_code'].str[:6].to_list()
+# 切割数据
+#stock_code_list = stock_code_list.str[:6].to_list()
 
 #get_stock_price_csv(stock_code_list, '2017-01-01', '2022-05-29')
 
 # camulate_stock_data(stock_code_list, '2022-05-25')
 
-camulate_stock_data_at_MA10(['000001'])
+camulate_stock_data_at_MA10(stock_code_list)

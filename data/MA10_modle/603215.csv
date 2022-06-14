@@ -1,0 +1,4 @@
+,ts_code,trade_date,two_day_MA10,one_day_MA10,today_close,tomorrow_open,tomorrow_high,tomorrow_low,target_price,diff_value,get_close,get_high,get_open
+0,603215.XSHG,2022-05-19,17.88,18.05,,17.89,18.95,17.75,18.22,3.68%,2.36%,4.01%,-1.81%
+1,603215.XSHG,2022-05-17,17.25,17.62,,17.71,18.79,17.55,17.99,2.78%,3.56%,4.45%,-1.56%
+2,603215.XSHG,2022-05-11,17.15,17.14,,17.3,19.07,17.17,17.13,-0.47%,0,4.45%,-1.56%
