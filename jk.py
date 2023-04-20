@@ -6,9 +6,33 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 import math
+from MyTT import *
 
-#jq.auth('17802925769', '2226612.LIchen')
+jq.auth('18892136693', '2226612.LIchen')
 
+
+def get_top_and_down_count(result_tmp):
+    CLOSE = result_tmp['close']
+    OPEN = result_tmp['open']
+    HIGH = result_tmp['high']
+    LOW = result_tmp['low']  # 基础数据定义
+
+    VAR1 = 1
+    # VAR2 = 1/WINNER(CLOSE)
+    VAR3 = MA(CLOSE, 13)
+    VAR4 = 100 - ABS((CLOSE - VAR3) / VAR3 * 100)
+    VAR5 = LLV(LOW, 75)
+    VAR6 = HHV(HIGH, 75)
+    VAR7 = (VAR6 - VAR5) / 100
+    VAR8 = (SMA((CLOSE - VAR5) / VAR7, 20, 1))
+    VAR9 = (SMA((OPEN - VAR5) / VAR7, 20, 1))
+    VARA = 3 * VAR8 - 2 * SMA(VAR8, 15, 1)
+    VARB = 3 * VAR9 - 2 * SMA(VAR9, 15, 1)
+    VARC = 100 - VARB
+
+    duzhan_tmp = (100 - VARA) * VAR1
+
+    return duzhan_tmp
 
 # 获得股票数据源
 def get_stock_price_csv(stock_code_list, start_date, end_date):
@@ -157,13 +181,21 @@ def camulate_stock_data_at_MA10(stock_code_list):
         result.drop(result.index, inplace=True)
 
 
-stock_code = pd.read_csv('./data/主板名称.csv')
-stock_code_list = stock_code['ts_code'].str[:6].to_list()
+#stock_code = pd.read_csv('./data/主板名称.csv')
+#stock_code_list = stock_code['ts_code'].str[:6].to_list()
 # 切割数据
 #stock_code_list = stock_code_list.str[:6].to_list()
 
-#get_stock_price_csv(stock_code_list, '2017-01-01', '2022-05-29')
+#get_stock_price_csv('000001', '2017-01-01', '2022-05-29')
 
 # camulate_stock_data(stock_code_list, '2022-05-25')
 
-camulate_stock_data_at_MA10(stock_code_list)
+#camulate_stock_data_at_MA10(stock_code_list)
+close_data=jq.get_price('000001.XSHE', count = 1000, end_date='2023-04-20', frequency='15m', fq='pre',fields=['open', 'close','high','low'])
+
+duzhan = get_top_and_down_count(close_data)
+
+for dz in duzhan:
+    print(dz)
+
+print("hello world")
