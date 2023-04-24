@@ -10,7 +10,7 @@ import param as par
 
 jq.auth('18892136693', '2226612.LIchen')
 
-close_data = jq.get_price("516160.XSHG", count = 200, end_date='2023-04-24', frequency='5m', fq='pre',fields=['open', 'close','high','low'])
+close_data = jq.get_price("516160.XSHG", count = 5000, end_date='2023-04-24', frequency='5m', fq='pre',fields=['open', 'close','high','low'])
 
 
 par.set_ma(close_data)
@@ -24,8 +24,8 @@ x=list(range(1,close['DDT'].size+1))
 y=list(close['DDT'])
 pl.plot_dingditu(x,y)
 
-x=list(range(1,close['Derivative'].size+1))
-y=list(close['Derivative'])
-pl.plot_dingditu(x,y)
+#x=list(range(1,close['Derivative'].size+1))
+#y=list(close['Derivative'])
+#pl.plot_dingditu(x,y)
 
-#close.to_csv('./data/'+'516160.csv')
+close.to_csv('./data/'+'516160.csv')
