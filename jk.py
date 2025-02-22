@@ -1,75 +1,11 @@
 from operator import imod
 from statistics import mode
 from xml.dom.expatbuilder import parseString
-import jqdatasdk as jq
 import pandas as pd
 import numpy as np
 import datetime as dt
 import math
 from MyTT import *
-
-jq.auth('18892136693', '2226612.LIchen')
-
-
-def get_top_and_down_count(result_tmp):
-    CLOSE = result_tmp['close']
-    OPEN = result_tmp['open']
-    HIGH = result_tmp['high']
-    LOW = result_tmp['low']  # 基础数据定义
-
-    VAR1 = 1
-    # VAR2 = 1/WINNER(CLOSE)
-    VAR3 = MA(CLOSE, 13)
-    VAR4 = 100 - ABS((CLOSE - VAR3) / VAR3 * 100)
-    VAR5 = LLV(LOW, 75)
-    VAR6 = HHV(HIGH, 75)
-    VAR7 = (VAR6 - VAR5) / 100
-    VAR8 = (SMA((CLOSE - VAR5) / VAR7, 20, 1))
-    VAR9 = (SMA((OPEN - VAR5) / VAR7, 20, 1))
-    VARA = 3 * VAR8 - 2 * SMA(VAR8, 15, 1)
-    VARB = 3 * VAR9 - 2 * SMA(VAR9, 15, 1)
-    VARC = 100 - VARB
-
-    duzhan_tmp = (100 - VARA) * VAR1
-
-    return duzhan_tmp
-
-# 获得股票数据源
-def get_stock_price_csv(stock_code_list, start_date, end_date):
-    for stock_code in stock_code_list:
-        df = jq.get_price(stock_code, start_date=start_date, end_date=end_date,
-                          frequency='daily', fields=['open', 'close', 'high', 'low', 'volume', 'money'])
-
-        # 整理数据
-        df.to_csv('temp.csv')
-        df = pd.read_csv('temp.csv')
-        df.rename(columns={'Unnamed: 0': "trade_date"}, inplace=True)
-
-        # 整理数据
-        df.to_csv('temp.csv')  # 这里随意取名，这个csv会存在当前.py文件的同一目录下，可以查看具体数据
-        # 后面这个parse_dates参数的作用是将trade_date那一列的日期数据从xxxxxxxx（float型）改成xxxx-xx-xx（日期型）形式
-        df = pd.read_csv('temp.csv', parse_dates=[
-            'trade_date'], index_col=['trade_date'])
-        df.drop(labels='Unnamed: 0', axis=1, inplace=True)
-
-        df = df.sort_values(by='trade_date')
-        # 计算MA5
-        df.insert(loc=0, column='ts_code', value=stock_code)
-        df.loc[:, "MA5"] = round(df['close'].rolling(5).mean(), 2)  # 添加5均的价格
-        df.loc[:, "MA10"] = round(
-            df['close'].rolling(10).mean(), 2)  # 添加10均的价格
-        df.loc[:, "MA20"] = round(
-            df['close'].rolling(20).mean(), 2)  # 添加20均的价格
-        df.loc[:, "MA30"] = round(
-            df['close'].rolling(30).mean(), 2)  # 添加30均的价格
-
-        df = df.sort_values(by='trade_date', ascending=False)
-        # 更改名字
-        stock_code_name = stock_code[:-5]
-        df.to_csv('./data/MA5_modle/jq_all_stock_data/'+stock_code_name+'.csv')
-
-# 计算首板5均买入的胜率
-
 
 def camulate_stock_data(stock_code_list, camulate_day):
 
@@ -191,11 +127,4 @@ def camulate_stock_data_at_MA10(stock_code_list):
 # camulate_stock_data(stock_code_list, '2022-05-25')
 
 #camulate_stock_data_at_MA10(stock_code_list)
-close_data=jq.get_price('000001.XSHE', count = 1000, end_date='2023-04-20', frequency='15m', fq='pre',fields=['open', 'close','high','low'])
 
-duzhan = get_top_and_down_count(close_data)
-
-for dz in duzhan:
-    print(dz)
-
-print("hello world")
