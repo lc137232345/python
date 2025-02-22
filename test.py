@@ -19,6 +19,18 @@ pro = ts.pro_api()
 
 
 def get_limit_up_data(date_list):
+    """
+    获取指定日期列表的涨停股票数据。
+
+    参数:
+        date_list (list): 包含日期字符串的列表，格式为 'YYYYMMDD'。
+
+    功能:
+        1. 遍历日期列表，读取每个日期的股票数据。
+        2. 将读取的数据保存为 CSV 文件。
+        3. 清理数据，筛选出涨幅在 9.8% 到 10.1% 之间的股票。
+        4. 将筛选出的涨停股票数据保存为新的 CSV 文件。
+    """
     for date in date_list:
         #读取数据
         df = pro.daily(trade_date=date)
