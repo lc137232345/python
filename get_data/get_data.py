@@ -34,13 +34,50 @@ def get_data(stock_code):
 def save_data(df,stock_code):
     # 更改名字
     df.to_csv('./data/'+stock_code+'11.csv')
-
+def MACD_Cross(data):
+    """
+    判断MACD金叉和死叉，并返回买入和卖出信号
+    金叉：短期EMA上穿长期EMA，产生买入信号
+    死叉：短期EMA下穿长期EMA，产生卖出信号
+    """
+    # 确保必要的列存在
+    required_columns = {'EMA12', 'EMA26', 'DEA'}
+    if not required_columns.issubset(data.columns):
+        missing = required_columns - set(data.columns)
+        raise ValueError(f"数据缺少必要的列: {missing}")
+    
+    # 计算MACD线和信号线
+    data['MACD_Line'] = data['EMA12'] - data['EMA26']
+    
+    # 初始化信号列
+    data['Signal'] = 0
+    
+    # 使用shift比较当前和前一时刻的MACD线和信号线
+    data['Prev_MACD'] = data['MACD_Line'].shift(1)
+    data['Prev_Signal'] = data['DEA'].shift(1)
+    
+    # 生成买入和卖出信号
+    data.loc[(data['MACD_Line'] > data['DEA']) & (data['Prev_MACD'] <= data['Prev_Signal']), 'Signal'] = 1  # 买入信号
+    data.loc[(data['MACD_Line'] < data['DEA']) & (data['Prev_MACD'] >= data['Prev_Signal']), 'Signal'] = -1  # 卖出信号
+    
+    # 删除辅助列
+    data.drop(columns=['Prev_MACD', 'Prev_Signal'], inplace=True)
+    
+    return data
+# 在deal_data函数中调用MACD_Cross
 def deal_data(stock_code):
     data = get_data(stock_code)
     pa.set_ma(data)
     pa.set_MACD(data)
     pa.set_KDJ(data)
     pa.set_DDT(data)
-    save_data(data,stock_code)
+    
+    # 调用MACD金叉死叉判断函数
+    data = MACD_Cross(data)
+    
+    save_data(data, stock_code)
+
+# 示例调用
+deal_data("000001")
 
 deal_data("000001")

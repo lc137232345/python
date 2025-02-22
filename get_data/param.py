@@ -37,7 +37,6 @@ def set_MACD(df):
     df['EMA12'] = round(df['close'].ewm(span=12).mean(),3)
     df['EMA26'] = round(df['close'].ewm(span=26).mean(),3)
     df['MACD'] = round(df['EMA12'] - df['EMA26'],3)
-    df['Signal'] = round(df['MACD'].ewm(span=9).mean(),3)
 
 
 def set_KDJ(df):
